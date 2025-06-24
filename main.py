@@ -1,3 +1,4 @@
+from datetime import datetime
 import database
 import analyze
 
@@ -17,7 +18,16 @@ while True:
         try:
             amount = float(input("Amount: "))
             category = input("Category (e.g., food, rent, travel): ")
-            database.add_expense(amount, category)
+
+            while True:
+                date_input = input("Date (YYYY-MM-DD): ")
+                try:
+                    date_obj = datetime.strptime(date_input, "%Y-%m-%d").date()
+                    break
+                except ValueError:
+                    print("Invalid date format. Please enter in YYYY-MM-DD format.")
+
+            database.add_expense(amount, category, date_obj)
             print("Expense added.")
         except Exception as e:
             print("Error:", e)

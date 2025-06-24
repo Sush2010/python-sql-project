@@ -10,11 +10,9 @@ def connect():
     )
     return conn
 
-def add_expense(amount, category):
+def add_expense(amount, category, date):
     conn = connect()
     cur = conn.cursor()
-    date = datetime.now().date()
-    cur.execute("INSERT INTO expenses (amount, category, date) VALUES (%s, %s, %s)",
-                (amount, category, date))
+    cur.execute("INSERT INTO expenses (amount, category, date) VALUES (%s, %s, %s)", (amount, category, date))
     conn.commit()
     conn.close()
